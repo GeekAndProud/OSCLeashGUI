@@ -1,3 +1,3 @@
 A GUI for OSCLeash!
 
-https://i.imgur.com/nDN6QEz.png
+<img src="https://i.imgur.com/nDN6QEz.png" width="350" title="hover text">
