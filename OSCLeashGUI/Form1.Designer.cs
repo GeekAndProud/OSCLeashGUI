@@ -32,8 +32,8 @@ namespace OSCLeashGUI
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runDeadzone = new System.Windows.Forms.TextBox();
-            this.strengthMult = new System.Windows.Forms.TextBox();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,7 +42,14 @@ namespace OSCLeashGUI
             this.vertical = new System.Windows.Forms.TextBox();
             this.leashgrabbedLbl = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.strengthMult = new System.Windows.Forms.NumericUpDown();
+            this.walkDeadzone = new System.Windows.Forms.NumericUpDown();
+            this.runDeadzone = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.strengthMult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.walkDeadzone)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.runDeadzone)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -50,10 +57,11 @@ namespace OSCLeashGUI
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(675, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(669, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -72,35 +80,35 @@ namespace OSCLeashGUI
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // runDeadzone
+            // helpToolStripMenuItem
             // 
-            this.runDeadzone.Location = new System.Drawing.Point(147, 80);
-            this.runDeadzone.Name = "runDeadzone";
-            this.runDeadzone.Size = new System.Drawing.Size(100, 26);
-            this.runDeadzone.TabIndex = 1;
-            this.runDeadzone.Text = "0.7";
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
+            this.helpToolStripMenuItem.Text = "Help";
             // 
-            // strengthMult
+            // aboutToolStripMenuItem
             // 
-            this.strengthMult.Location = new System.Drawing.Point(147, 112);
-            this.strengthMult.Name = "strengthMult";
-            this.strengthMult.Size = new System.Drawing.Size(100, 26);
-            this.strengthMult.TabIndex = 2;
-            this.strengthMult.Text = "1.2";
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(164, 34);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(417, 83);
+            this.label1.Location = new System.Drawing.Point(496, 81);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 20);
+            this.label1.Size = new System.Drawing.Size(24, 20);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Vertical:";
+            this.label1.Text = "X:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 86);
+            this.label2.Location = new System.Drawing.Point(45, 127);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(117, 20);
             this.label2.TabIndex = 4;
@@ -109,7 +117,7 @@ namespace OSCLeashGUI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 115);
+            this.label3.Location = new System.Drawing.Point(25, 179);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(137, 20);
             this.label3.TabIndex = 5;
@@ -117,16 +125,18 @@ namespace OSCLeashGUI
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(398, 115);
+            this.label4.Location = new System.Drawing.Point(496, 113);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 20);
+            this.label4.Size = new System.Drawing.Size(24, 20);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Horizontal:";
+            this.label4.Text = "Y:";
             // 
             // horizontal
             // 
-            this.horizontal.Location = new System.Drawing.Point(489, 112);
+            this.horizontal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.horizontal.Location = new System.Drawing.Point(526, 107);
             this.horizontal.Name = "horizontal";
             this.horizontal.ReadOnly = true;
             this.horizontal.Size = new System.Drawing.Size(100, 26);
@@ -134,7 +144,8 @@ namespace OSCLeashGUI
             // 
             // vertical
             // 
-            this.vertical.Location = new System.Drawing.Point(489, 80);
+            this.vertical.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.vertical.Location = new System.Drawing.Point(526, 78);
             this.vertical.Name = "vertical";
             this.vertical.ReadOnly = true;
             this.vertical.Size = new System.Drawing.Size(100, 26);
@@ -143,26 +154,81 @@ namespace OSCLeashGUI
             // leashgrabbedLbl
             // 
             this.leashgrabbedLbl.AutoSize = true;
-            this.leashgrabbedLbl.Location = new System.Drawing.Point(12, 46);
+            this.leashgrabbedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.leashgrabbedLbl.Location = new System.Drawing.Point(12, 44);
             this.leashgrabbedLbl.Name = "leashgrabbedLbl";
-            this.leashgrabbedLbl.Size = new System.Drawing.Size(167, 20);
+            this.leashgrabbedLbl.Size = new System.Drawing.Size(192, 22);
             this.leashgrabbedLbl.TabIndex = 9;
             this.leashgrabbedLbl.Text = "Leash is NOT grabbed";
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(417, 46);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(496, 44);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 20);
+            this.label5.Size = new System.Drawing.Size(73, 22);
             this.label5.TabIndex = 10;
             this.label5.Text = "Outputs";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(40, 85);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(122, 20);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Walk Deadzone";
+            // 
+            // strengthMult
+            // 
+            this.strengthMult.DecimalPlaces = 2;
+            this.strengthMult.Location = new System.Drawing.Point(168, 177);
+            this.strengthMult.Name = "strengthMult";
+            this.strengthMult.Size = new System.Drawing.Size(120, 26);
+            this.strengthMult.TabIndex = 13;
+            this.strengthMult.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            65536});
+            // 
+            // walkDeadzone
+            // 
+            this.walkDeadzone.DecimalPlaces = 2;
+            this.walkDeadzone.Location = new System.Drawing.Point(168, 79);
+            this.walkDeadzone.Name = "walkDeadzone";
+            this.walkDeadzone.Size = new System.Drawing.Size(120, 26);
+            this.walkDeadzone.TabIndex = 14;
+            this.walkDeadzone.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            // 
+            // runDeadzone
+            // 
+            this.runDeadzone.DecimalPlaces = 2;
+            this.runDeadzone.Location = new System.Drawing.Point(168, 125);
+            this.runDeadzone.Name = "runDeadzone";
+            this.runDeadzone.Size = new System.Drawing.Size(120, 26);
+            this.runDeadzone.TabIndex = 15;
+            this.runDeadzone.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            65536});
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(675, 153);
+            this.ClientSize = new System.Drawing.Size(669, 215);
+            this.Controls.Add(this.runDeadzone);
+            this.Controls.Add(this.walkDeadzone);
+            this.Controls.Add(this.strengthMult);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.leashgrabbedLbl);
             this.Controls.Add(this.vertical);
@@ -171,8 +237,6 @@ namespace OSCLeashGUI
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.strengthMult);
-            this.Controls.Add(this.runDeadzone);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -181,6 +245,9 @@ namespace OSCLeashGUI
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.strengthMult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.walkDeadzone)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.runDeadzone)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,8 +258,6 @@ namespace OSCLeashGUI
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.TextBox runDeadzone;
-        private System.Windows.Forms.TextBox strengthMult;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -201,6 +266,12 @@ namespace OSCLeashGUI
         private System.Windows.Forms.TextBox vertical;
         private System.Windows.Forms.Label leashgrabbedLbl;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.NumericUpDown strengthMult;
+        private System.Windows.Forms.NumericUpDown walkDeadzone;
+        private System.Windows.Forms.NumericUpDown runDeadzone;
     }
 }
 

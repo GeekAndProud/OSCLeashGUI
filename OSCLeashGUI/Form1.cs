@@ -16,27 +16,22 @@ using System.Diagnostics;
 using Rug.Osc;
 using System.Net;
 using System.Text.RegularExpressions;
+using OSCLeashGUI.Properties;
 
 namespace OSCLeashGUI
 {
     public partial class Form1 : Form
     {
-        ThreadStart leashSender;
-        Thread leashSend;
-        ThreadStart leashChecker;
-        Thread leashCheck;
         OscClient Client = new OscClient("127.0.0.1", 9000);
         static OscReceiver receiver;
-        static OscSender OSCsender;
         static Thread thread;
         static Thread threader;
         //OscServer server = new OscServer(9001);
-        bool MessageValue;
         public float XPos;
         public float XNeg;
         public float ZPos;
         public float ZNeg;
-        float leashStretch;
+        float stretchy;
         static float VerticalOutput;
         static float HorizontalOutput;
         IPAddress localhost;
@@ -54,21 +49,22 @@ namespace OSCLeashGUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            leasher.isGrabbed = true;
             int port = 9001;
             localhost = IPAddress.Parse("127.0.0.1");
             // Create the receiver
             receiver = new OscReceiver(port);
-            OSCsender = new OscSender(localhost, 9000);
             // Create a thread to do the listening
             thread = new Thread(new ThreadStart(ListenLoop));
             threader = new Thread(new ThreadStart(sendDeets));
             // Connect the receiver
             receiver.Connect();
-
             // Start the listen thread
             thread.Start();
-
-
+            threader.Start();
+            runDeadzone.Text = Settings.Default.runDeadzone.ToString();
+            walkDeadzone.Text = Settings.Default.walkDeadzone.ToString();
+            strengthMult.Text = Settings.Default.strengthMult.ToString();
         }
 
         private void ListenLoop()
@@ -85,55 +81,51 @@ namespace OSCLeashGUI
                         OscPacket packet = receiver.Receive();
                         if (packet.ToString().Contains("Leash_IsGrabbed"))
                         {
-                            Console.WriteLine(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1));
+                            //Console.WriteLine(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1));
                             if (bool.Parse(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1)))
                             {
                                 leashgrabbedLbl.Invoke(new Action(() => leashgrabbedLbl.Text = "Leash IS grabbed"));
-                                if (packet.ToString().Contains("Leash_Stretch"))
-                                {
-                                    float stretchy = float.Parse(packet.ToString());
-                                    if (stretchy > float.Parse(runDeadzone.Text))
-                                    {
-                                        Debug.WriteLine(packet.ToString());
-                                        if (packet.ToString().Contains("Leash"))
-                                        {
-                                            int index = packet.ToString().IndexOf(",") + 2;
-                                            string floaty = packet.ToString();
-                                            string onlyFloat = "";
-                                            int length = floaty.Length - 1;
-                                            if (index >= 0)
-                                            onlyFloat = floaty.Substring(index, length - index);
-                                            if (packet.ToString().Contains("Leash_X+"))
-                                            {
-                                                XPos = float.Parse(onlyFloat);
-                                            }
-                                            else if (packet.ToString().Contains("Leash_X-"))
-                                            {
-                                                XNeg = float.Parse(onlyFloat);
-                                            }
-                                            else if (packet.ToString().Contains("Leash_Z+"))
-                                            {
-                                                ZPos = float.Parse(onlyFloat);
-                                            }
-                                            else if (packet.ToString().Contains("Leash_Z-"))
-                                            {
-                                                ZNeg = float.Parse(onlyFloat);
-                                            }
-                                        }
-                                    }
-                                }
+                                leasher.isGrabbed = true;
                             }
                             else
                             {
-                                leashgrabbedLbl.Invoke(new Action(() => leashgrabbedLbl.Text = "Leash is NOT grabbed"));
+                                leashgrabbedLbl.Invoke(new Action(() => leashgrabbedLbl.Text = "Leash not grabbed"));
+                                leasher.isGrabbed = false;
+                                HorizontalOutput = 0f;
+                                VerticalOutput = 0f;
                             }
                         }
+                        if (packet.ToString().Contains("Leash_Stretch"))
+                        {
+                            //Debug.WriteLine(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1).TrimEnd('f'));
+                            stretchy = float.Parse(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1).TrimEnd('f'));
+                            leasher.Stretch = stretchy;
+                        }
+                        if (stretchy > float.Parse(runDeadzone.Text))
+                        {
+                            //Debug.WriteLine(stretchy.ToString());
+                            if (packet.ToString().Contains("Leash_X+"))
+                            {
+                                XPos = float.Parse(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1).TrimEnd('f'));
+                            }
+                            else if (packet.ToString().Contains("Leash_X-"))
+                            {
+                                XNeg = float.Parse(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1).TrimEnd('f'));
+                            }
+                            else if (packet.ToString().Contains("Leash_Z+"))
+                            {
+                                ZPos = float.Parse(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1).TrimEnd('f'));
+                            }
+                            else if (packet.ToString().Contains("Leash_Z-"))
+                            {
+                                ZNeg = float.Parse(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1).TrimEnd('f'));
+                            }
+                            //vertical.Invoke(new Action(() => vertical.Text = VerticalOutput.ToString()));
+                            //horizontal.Invoke(new Action(() => horizontal.Text = HorizontalOutput.ToString()));
+                        }
+                            VerticalOutput = Clamp((ZPos - ZNeg) * stretchy * float.Parse(strengthMult.Text));
+                            HorizontalOutput = Clamp((XPos - XNeg) * stretchy * float.Parse(strengthMult.Text));
                     }
-
-                    VerticalOutput = Clamp((ZPos - ZNeg) * leashStretch * float.Parse(strengthMult.Text));
-                    HorizontalOutput = Clamp((XPos - XNeg) * leashStretch * float.Parse(strengthMult.Text));
-                    vertical.Invoke(new Action(() => vertical.Text = VerticalOutput.ToString()));
-                    horizontal.Invoke(new Action(() => horizontal.Text = HorizontalOutput.ToString()));
                 }
             }
             catch (Exception ex)
@@ -146,7 +138,6 @@ namespace OSCLeashGUI
                     Debug.WriteLine(ex.Message);
                 }
             }
-            Thread.Sleep(200);
         }
 
         private float Clamp(float v)
@@ -156,25 +147,82 @@ namespace OSCLeashGUI
 
         private void sendDeets()
         {
-            if (leasher.isGrabbed == true)
+            Debug.WriteLine("started");
+            try
             {
-                if (leasher.Stretch > float.Parse(runDeadzone.Text))
+                while (true)
                 {
+                    if (leasher.isGrabbed)
+                    {
+                        if (leasher.Stretch > float.Parse(runDeadzone.Text))
+                        {
+                            Client.Send("input/Run", 1);
+                            Client.Send("/input/Vertical", VerticalOutput);
+                            Client.Send("/input/Horizontal", HorizontalOutput);
+                        }
+                        else if(leasher.Stretch > 0 & leasher.Stretch > float.Parse(walkDeadzone.Text) & leasher.Stretch < float.Parse(runDeadzone.Text))
+                        {
+                            Client.Send("input/Run", 0);
+                            Client.Send("/input/Vertical", VerticalOutput);
+                            Client.Send("/input/Horizontal", HorizontalOutput);
+                        }
+                       
+                    } 
+                    else
+                    {
+                        VerticalOutput = 0f;
+                        HorizontalOutput = 0f;
+                        Client.Send("input/Run", 0);
+                    }
+                    vertical.Invoke(new Action(() => vertical.Text = VerticalOutput.ToString()));
+                    horizontal.Invoke(new Action(() => horizontal.Text = HorizontalOutput.ToString()));
                     Client.Send("/input/Vertical", VerticalOutput);
                     Client.Send("/input/Horizontal", HorizontalOutput);
+                    Thread.Sleep(100);
                 }
-                vertical.Invoke(new Action(() => vertical.Text = VerticalOutput.ToString()));
-                horizontal.Invoke(new Action(() => vertical.Text = HorizontalOutput.ToString()));
             }
-
+            catch (Exception ex)
+            {
+                // if the socket was connected when this happens
+                // then tell the user
+                if (receiver.State == OscSocketState.Connected)
+                {
+                    Debug.WriteLine("Exception in listen loop");
+                    Debug.WriteLine(ex.Message);
+                }
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            thread.Abort();
+            thread.Interrupt();
             threader.Abort();
             receiver.Close();
             Close();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            about about = new about();
+            about.ShowDialog();
+        }
+
+        private void walkDeadzone_TextChanged(object sender, EventArgs e)
+        {
+            Settings.Default.walkDeadzone = float.Parse(walkDeadzone.Text);
+            Settings.Default.Save();
+        }
+
+        private void runDeadzone_TextChanged(object sender, EventArgs e)
+        {
+            Settings.Default.runDeadzone = float.Parse(runDeadzone.Text);
+            Settings.Default.Save();
+        }
+
+        private void strengthMult_TextChanged(object sender, EventArgs e)
+        {
+            Settings.Default.strengthMult = float.Parse(strengthMult.Text);
+            Settings.Default.Save();
         }
     }
 }
