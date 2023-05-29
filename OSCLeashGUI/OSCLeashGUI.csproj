@@ -30,7 +30,7 @@
     <InstallUrl>https://raw.githubusercontent.com/GeekAndProud/OSCLeashGUI/master/OSCLeashGUI/publish/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -284,34 +284,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\BlobHandles.Runtime.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\BuildSoft.OscCore.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\nunit.framework.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\OSCLeashGUI.application" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\OSCLeashGUI.exe.config.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\OSCLeashGUI.exe.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\OSCLeashGUI.exe.manifest" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\Rug.Osc.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\System.Buffers.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\System.Diagnostics.DiagnosticSource.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\System.Memory.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\System.Numerics.Vectors.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\System.Runtime.CompilerServices.Unsafe.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_2\UnityEngine.CoreModule.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\BlobHandles.Runtime.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\BuildSoft.OscCore.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\nunit.framework.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\OSCLeashGUI.application" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\OSCLeashGUI.exe.config.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\OSCLeashGUI.exe.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\OSCLeashGUI.exe.manifest" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\Rug.Osc.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\System.Buffers.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\System.Diagnostics.DiagnosticSource.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\System.Memory.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\System.Numerics.Vectors.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\System.Runtime.CompilerServices.Unsafe.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_3\UnityEngine.CoreModule.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\BlobHandles.Runtime.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\BuildSoft.OscCore.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\nunit.framework.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\OSCLeashGUI.application" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\OSCLeashGUI.exe.config.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\OSCLeashGUI.exe.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\OSCLeashGUI.exe.manifest" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\Rug.Osc.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Buffers.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Diagnostics.DiagnosticSource.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Memory.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Numerics.Vectors.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Runtime.CompilerServices.Unsafe.dll.deploy" />
+    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\UnityEngine.CoreModule.dll.deploy" />
     <None Include="publish\OSCLeashGUI.application" />
     <None Include="README.MD" />
   </ItemGroup>
@@ -329,9 +315,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="publish\Application Files\OSCLeashGUI_1_0_0_1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="publish\publish.htm" />
