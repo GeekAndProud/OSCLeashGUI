@@ -71,7 +71,7 @@ namespace OSCLeashGUI
         {
             try
             {
-                while (receiver.State != OscSocketState.Closed)
+                while (receiver.State != OscSocketState.Closed & thread.IsAlive)
                 {
                     // if we are in a state to recieve
                     if (receiver.State == OscSocketState.Connected)
@@ -93,15 +93,16 @@ namespace OSCLeashGUI
                                 leasher.isGrabbed = false;
                                 HorizontalOutput = 0f;
                                 VerticalOutput = 0f;
-                            }
-                        }
+                            }                           
+                        } 
+                        
                         if (packet.ToString().Contains("Leash_Stretch"))
                         {
                             //Debug.WriteLine(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1).TrimEnd('f'));
                             stretchy = float.Parse(packet.ToString().Substring(packet.ToString().LastIndexOf(",") + 1).TrimEnd('f'));
                             leasher.Stretch = stretchy;
                         }
-                        if (stretchy > float.Parse(runDeadzone.Text))
+                        if (stretchy > float.Parse(walkDeadzone.Text))
                         {
                             //Debug.WriteLine(stretchy.ToString());
                             if (packet.ToString().Contains("Leash_X+"))
@@ -123,20 +124,20 @@ namespace OSCLeashGUI
                             //vertical.Invoke(new Action(() => vertical.Text = VerticalOutput.ToString()));
                             //horizontal.Invoke(new Action(() => horizontal.Text = HorizontalOutput.ToString()));
                         }
-                            VerticalOutput = Clamp((ZPos - ZNeg) * stretchy * float.Parse(strengthMult.Text));
-                            HorizontalOutput = Clamp((XPos - XNeg) * stretchy * float.Parse(strengthMult.Text));
+                        VerticalOutput = Clamp((ZPos - ZNeg) * stretchy * float.Parse(strengthMult.Text));
+                        HorizontalOutput = Clamp((XPos - XNeg) * stretchy * float.Parse(strengthMult.Text));
                     }
                 }
             }
             catch (Exception ex)
             {
-                // if the socket was connected when this happens
-                // then tell the user
-                if (receiver.State == OscSocketState.Connected)
-                {
-                    Debug.WriteLine("Exception in listen loop");
-                    Debug.WriteLine(ex.Message);
-                }
+                //// if the socket was connected when this happens
+                //// then tell the user
+                //if (receiver.State == OscSocketState.Connected)
+                //{
+                //    Debug.WriteLine("Exception in listen loop");
+                //    Debug.WriteLine(ex.Message);
+                //}
             }
         }
 
@@ -152,6 +153,7 @@ namespace OSCLeashGUI
             {
                 while (true)
                 {
+                    //Debug.WriteLine(leasher.isGrabbed);
                     if (leasher.isGrabbed)
                     {
                         if (leasher.Stretch > float.Parse(runDeadzone.Text))
@@ -173,11 +175,11 @@ namespace OSCLeashGUI
                         VerticalOutput = 0f;
                         HorizontalOutput = 0f;
                         Client.Send("input/Run", 0);
+                        Client.Send("/input/Vertical", 0f);
+                        Client.Send("/input/Horizontal", 0f);
                     }
                     vertical.Invoke(new Action(() => vertical.Text = VerticalOutput.ToString()));
                     horizontal.Invoke(new Action(() => horizontal.Text = HorizontalOutput.ToString()));
-                    Client.Send("/input/Vertical", VerticalOutput);
-                    Client.Send("/input/Horizontal", HorizontalOutput);
                     Thread.Sleep(100);
                 }
             }
@@ -223,6 +225,12 @@ namespace OSCLeashGUI
         {
             Settings.Default.strengthMult = float.Parse(strengthMult.Text);
             Settings.Default.Save();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            thread.Abort();
+            threader.Abort();
         }
     }
 }
