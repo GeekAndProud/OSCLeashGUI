@@ -16,10 +16,10 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
+    <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -27,10 +27,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>https://raw.githubusercontent.com/GeekAndProud/OSCLeashGUI/master/OSCLeashGUI/publish/</InstallUrl>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <UpdateUrl>https://raw.githubusercontent.com/GeekAndProud/OSCLeashGUI/master/OSCLeashGUI/publish/publish.htm/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -284,21 +284,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\BlobHandles.Runtime.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\BuildSoft.OscCore.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\nunit.framework.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\OSCLeashGUI.application" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\OSCLeashGUI.exe.config.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\OSCLeashGUI.exe.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\OSCLeashGUI.exe.manifest" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\Rug.Osc.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Buffers.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Diagnostics.DiagnosticSource.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Memory.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Numerics.Vectors.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\System.Runtime.CompilerServices.Unsafe.dll.deploy" />
-    <None Include="publish\Application Files\OSCLeashGUI_1_0_0_4\UnityEngine.CoreModule.dll.deploy" />
-    <None Include="publish\OSCLeashGUI.application" />
     <None Include="README.MD" />
   </ItemGroup>
   <ItemGroup>
@@ -315,10 +300,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="publish\publish.htm" />
-    <Content Include="publish\setup.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
