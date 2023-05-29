@@ -46,10 +46,14 @@ namespace OSCLeashGUI
             this.strengthMult = new System.Windows.Forms.NumericUpDown();
             this.walkDeadzone = new System.Windows.Forms.NumericUpDown();
             this.runDeadzone = new System.Windows.Forms.NumericUpDown();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.strengthMult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.walkDeadzone)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.runDeadzone)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -83,6 +87,7 @@ namespace OSCLeashGUI
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkForUpdateToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
@@ -220,11 +225,36 @@ namespace OSCLeashGUI
             0,
             65536});
             // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.checkForUpdateToolStripMenuItem.Text = "Check for update";
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 219);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(669, 32);
+            this.statusStrip1.TabIndex = 16;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(179, 25);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 215);
+            this.ClientSize = new System.Drawing.Size(669, 251);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.runDeadzone);
             this.Controls.Add(this.walkDeadzone);
             this.Controls.Add(this.strengthMult);
@@ -249,6 +279,8 @@ namespace OSCLeashGUI
             ((System.ComponentModel.ISupportInitialize)(this.strengthMult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.walkDeadzone)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.runDeadzone)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,6 +305,9 @@ namespace OSCLeashGUI
         private System.Windows.Forms.NumericUpDown strengthMult;
         private System.Windows.Forms.NumericUpDown walkDeadzone;
         private System.Windows.Forms.NumericUpDown runDeadzone;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 
